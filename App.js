@@ -1,27 +1,33 @@
-import * as React from "react";
-import { createSwitchNavigator, createAppContainer } from "react-navigation";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs'
 
-import LoginScreen from "./screens/LoginScreen";
-import LoadingScreen from "./screens/LoadingScreen";
 import HomeScreen from "./screens/HomeScreen";
+import CalculatorScreen from './screens/CalculatorScreen';
 
-import * as firebase from "firebase";
-import { firebaseConfig } from "./config";
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app();
+export default class App extends React.Component {
+  render() {
+    return (
+      <View>
+        <AppContainer />
+      </View>
+    );
+  }
 }
 
-const AppSwitchNavigator = createSwitchNavigator({
-  LoadingScreen: LoadingScreen,
-  LoginScreen: LoginScreen,
-  HomeScreen: HomeScreen
+var AppNavigator = createSwitchNavigator({
+  HomeScreen: HomeScreen,
+  CalculatorScreen: CalculatorScreen,
 });
 
-const AppNavigator = createAppContainer(AppSwitchNavigator);
+const AppContainer = createAppContainer(AppNavigator);
 
-export default function App() {
-  return <AppNavigator />;
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
